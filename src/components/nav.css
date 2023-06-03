@@ -1,0 +1,16 @@
+.nav-btn:active{
+    background-color: blueviolet;
+}
+.navMain1{
+    position:fixed;
+    right: -7px;
+    left: -7px;
+    top: -8px;
+
+}
+a{
+    color:black;
+}
+.nav-btn{
+    text-decoration: none;
+}
