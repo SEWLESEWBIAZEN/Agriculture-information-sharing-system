@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { Paper } from '@mui/material'
 import Footer from '../Footer'
 import NavBar from '../NavBar';
+import image from '../assets/samuel.jpg'
 
 
 const ProductManagement = () =>
@@ -9,38 +10,41 @@ const ProductManagement = () =>
     const [products, setProducts] = useState([]);
     const [name, setName] = useState('');
     const [price, setPrice] = useState('');
-    const [contact, setContact] = useState('');
+    const [quantity, setQuantity] = useState();
+    const [category, setCategory] = useState('');
+    const [selectedImg, setSelectedImg] = useState(null);
     const [description, setDescription] = useState('');
     const [editMode, setEditMode] = useState(false);
     const [editIndex, setEditIndex] = useState(null);
     const [expanded, setExpanded] = useState(false);
+    const [date, setDate] = useState('');
+
 
     const pros = [
         {
             name: 'wheat', description: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.',
-            contact: '0912334455', price: 1000
+            quantity: 3, category: 'category 1', price: 1000, selectedImg: '', date: '1/2/2000'
         },
         {
             name: 'Teff', description: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.',
-            contact: '0912334455', price: 2000
+            quantity: 5, category: 'category 1', price: 2000, selectedImg: '', date: '1/2/2000'
         },
         {
             name: 'Maize', description: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.',
-            contact: '0912334455', price: 900
+            quantity: 3, category: 'category 1', price: 1500, selectedImg: '', date: '1/2/2000'
         },
         {
             name: 'wheat', description: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.',
-            contact: '0912334455', price: 1000
+            quantity: 2, category: 'category 1', price: 1000, selectedImg: '', date: '1/2/2000'
         },
         {
-            name: 'Teff', description: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.',
-            contact: '0912334455', price: 2000
+            name: 'teff', description: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.',
+            quantity: 1, category: 'category 1', price: 2000, selectedImg: '', date: '1/2/2000'
         },
         {
-            name: 'Maize', description: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.',
-            contact: '0912334455', price: 900
+            name: 'wheat', description: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.',
+            quantity: 4, category: 'category 1', price: 1000, selectedImg: '', date: '1/2/2000'
         }
-
 
     ]
 
@@ -59,10 +63,20 @@ const ProductManagement = () =>
     {
         setPrice(e.target.value);
     };
-    const handleContactChange = (e) =>
+    const handleQuantityChange = (e) =>
     {
-        setContact(e.target.value);
+        setQuantity(e.target.value);
     };
+    const handleCategoryChange = (e) =>
+    {
+        setCategory(e.target.value);
+    };
+    const handleSelectedImgChange = (e) =>
+    {
+        const file = e.target.files[0];
+        setSelectedImg(URL.createObjectURL(file));
+    };
+
     const handleDescriptionChange = (e) =>
     {
         setDescription(e.target.value);
@@ -78,8 +92,12 @@ const ProductManagement = () =>
         const newProduct = {
             name: name,
             price: price,
-            contact: contact,
-            description: description
+            category: category,
+            quantity: quantity,
+            description: description,
+            selectedImg: selectedImg,
+            date: date
+
         };
         if (editMode)
         {
@@ -88,13 +106,17 @@ const ProductManagement = () =>
             setProducts(updatedProducts);
             setEditMode(false);
             setEditIndex(null);
+            setDate(new Date().toLocaleDateString());
         } else
         {
+            setDate(new Date().toLocaleDateString());
             setProducts([...products, newProduct]);
         }
         setName('');
         setPrice('');
-        setContact('');
+        setCategory('');
+        setQuantity();
+        setSelectedImg(null);
         setDescription('');
     };
 
@@ -104,7 +126,10 @@ const ProductManagement = () =>
         setName(productToEdit.name);
         setPrice(productToEdit.price);
         setDescription(productToEdit.description);
-        setContact(productToEdit.contact)
+        setCategory(productToEdit.category)
+        setSelectedImg(productToEdit.selectedImg);
+        setDate(new Date().toLocaleDateString());
+        setQuantity(productToEdit.quantity);
         setEditMode(true);
         setEditIndex(index);
     };
@@ -117,11 +142,10 @@ const ProductManagement = () =>
     };
     const handleExpand = () =>
     {
-        setExpanded(!expanded)
-        setProducts(expanded ? pros : pros.slice(0, 3))
-
-
+        setExpanded((prevExpanded) => !prevExpanded);
+        setProducts((prevProducts) => (expanded ? pros.slice(0, 3) : pros));
     };
+
 
 
     return (
@@ -134,10 +158,11 @@ const ProductManagement = () =>
 
             <div style={{ display: 'flex', marginTop: '5rem' }}>
 
+                {/* add and/or product form*/}
+                <div style={{ display: 'block', margin: '1rem', backgroundColor: 'whitesmoke', maxHeight: '38rem' }}>
 
-                <div style={{ display: 'block', margin: '1rem', backgroundColor: 'whitesmoke', maxHeight: '30rem' }}>
                     <h2>ADD PRODUCT</h2>
-                    <div style={{ margin: '2rem' }}>
+                    <div style={{ margin: '2rem 0.5rem' }}>
                         <input
                             type="text"
                             placeholder="Product Name"
@@ -145,17 +170,25 @@ const ProductManagement = () =>
                             onChange={handleNameChange}
                         />
                     </div>
-                    <div style={{ margin: '2rem' }}>
+                    <div style={{ margin: '2rem 0.5rem' }}>
                         <input
                             type="text"
-                            placeholder="Phone Number"
-                            value={contact}
-                            onChange={handleContactChange}
+                            placeholder="Product Category"
+                            value={category}
+                            onChange={handleCategoryChange}
+                        />
+                    </div>
+                    <div style={{ margin: '2rem 0.5rem' }}>
+                        <input
+                            type="text"
+                            placeholder="quantity"
+                            value={quantity}
+                            onChange={handleQuantityChange}
                         />
                     </div>
 
 
-                    <div style={{ margin: '2rem' }}>
+                    <div style={{ margin: '2rem 0.5rem' }}>
                         <input
                             type="number"
                             placeholder="Price"
@@ -164,7 +197,7 @@ const ProductManagement = () =>
                         />
                     </div>
 
-                    <div style={{ margin: '2rem' }}>
+                    <div style={{ margin: '2rem 0.5rem' }}>
                         <textarea
                             type="text"
                             rows={5}
@@ -175,13 +208,24 @@ const ProductManagement = () =>
                         />
                     </div>
 
+                    <div style={{ margin: '2rem 0.5rem' }}>
+                        <input
+                            type="file"
+                            placeholder="select an image"
+                            accept='image/*'
+                            value={selectedImg}
+                            onChange={handleSelectedImgChange}
+                        />
+                    </div>
 
-                    <div style={{ margin: '2rem' }}>
+
+                    <div style={{ margin: '2rem 0.5rem' }}>
                         <button className='btn btn-primary' onClick={handleAddProduct}>
                             {editMode ? 'Update Product' : 'Add Product'}
                         </button>
                     </div>
                 </div>
+                {/* product display section */}
                 <div style={{ backgroundColor: 'whitesmoke', margin: '1rem' }}>
                     <h2>Product List</h2>
                     {products.length === 0 ? (
@@ -191,10 +235,18 @@ const ProductManagement = () =>
                             <ul>
                                 {products.map((product, index) => (
                                     <Paper elevation={6} sx={{ margin: '1rem' }} key={index}>
-                                        <span style={{ marginRight: '0.5rem', color: 'red' }}>Product name: {product.name}</span><br />
+                                        <span style={{ marginRight: '1.5rem', color: 'red' }}>Product name: {product.name}</span>
+                                        <span style={{ marginLeft: '1.5rem', color: 'red' }}>Quantity: {product.quantity} Kuintel</span>
+                                        <br />
+                                        <span style={{ marginRight: '0.5rem' }}>
+                                            {selectedImg && (
+                                                <img src={product.selectedImg}
+                                                    alt="Selected Image"
+                                                    style={{ width: '300px', height: 'auto' }} />
+                                            )}</span>
                                         <span style={{ marginRight: '0.5rem' }}>{product.description}</span><br />
-                                        <span style={{ marginRight: '1.0rem', color: 'green' }}>Phone Number: {product.contact}</span>
-                                        <span style={{ backgroundColor: 'whitesmoke' }}> Price: ${product.price}</span>
+                                        <span style={{ marginRight: '1.0rem', color: 'green' }}>Product Category: {product.category}</span>
+                                        <span style={{ backgroundColor: 'whitesmoke' }}> Price: ETB{product.price}</span><br />
                                         <button className='btn btn-warning' style={{ margin: '1rem' }} onClick={() => handleEditProduct(index)}>Edit</button>
                                         <button className='btn btn-danger' style={{ margin: '1rem' }} onClick={() => handleDeleteProduct(index)}>
                                             Delete
@@ -203,7 +255,7 @@ const ProductManagement = () =>
                                 ))}
                             </ul>
                             <button className='btn btn-primary mb-3' onClick={handleExpand}>
-                                {expanded ? 'Show More...' : 'Show Less...'}
+                                {expanded ? 'Show Less...' : 'Show More...'}
                             </button>
                         </div>
                     )}

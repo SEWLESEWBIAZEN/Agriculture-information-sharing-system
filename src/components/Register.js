@@ -63,12 +63,6 @@ const Register = () =>
     const handleRegister = (e) =>
     {
         e.preventDefault();
-
-        // Perform sign-up logic here
-        console.log('Sign Up');
-        console.log('Username:', username);
-        console.log('Email:', email);
-        console.log('Password:', password);
     };
 
     const handleLogin = () =>
