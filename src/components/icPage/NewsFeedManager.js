@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { Paper } from '@mui/material'
-import Footer from '../Footer'
-import NavBar from '../NavBar';
+import Footer from '../farmer/Footer'
+import NavBar from '../farmer/NavBar';
 
 
 const JobManager = () =>

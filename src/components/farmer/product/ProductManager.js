@@ -2,8 +2,9 @@ import React, { useState, useEffect } from 'react';
 import { Paper } from '@mui/material'
 import Footer from '../Footer'
 import NavBar from '../NavBar';
-import image from '../assets/samuel.jpg'
-
+import img from '../../assets/wheat.jpg'
+import img1 from '../../assets/teff.jpg'
+import img2 from '../../assets/corn.jpg'
 
 const ProductManagement = () =>
 {
@@ -23,27 +24,27 @@ const ProductManagement = () =>
     const pros = [
         {
             name: 'wheat', description: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.',
-            quantity: 3, category: 'category 1', price: 1000, selectedImg: '', date: '1/2/2000'
+            quantity: 3, category: 'category 1', price: 1000, selectedImg: img, date: '1/2/2000'
         },
         {
             name: 'Teff', description: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.',
-            quantity: 5, category: 'category 1', price: 2000, selectedImg: '', date: '1/2/2000'
+            quantity: 5, category: 'category 1', price: 2000, selectedImg: img1, date: '1/2/2000'
         },
         {
             name: 'Maize', description: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.',
-            quantity: 3, category: 'category 1', price: 1500, selectedImg: '', date: '1/2/2000'
+            quantity: 3, category: 'category 1', price: 1500, selectedImg: img2, date: '1/2/2000'
         },
         {
             name: 'wheat', description: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.',
-            quantity: 2, category: 'category 1', price: 1000, selectedImg: '', date: '1/2/2000'
+            quantity: 2, category: 'category 1', price: 1000, selectedImg: img, date: '1/2/2000'
         },
         {
             name: 'teff', description: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.',
-            quantity: 1, category: 'category 1', price: 2000, selectedImg: '', date: '1/2/2000'
+            quantity: 1, category: 'category 1', price: 2000, selectedImg: img1, date: '1/2/2000'
         },
         {
             name: 'wheat', description: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.',
-            quantity: 4, category: 'category 1', price: 1000, selectedImg: '', date: '1/2/2000'
+            quantity: 4, category: 'category 1', price: 1000, selectedImg: img, date: '1/2/2000'
         }
 
     ]
@@ -238,15 +239,22 @@ const ProductManagement = () =>
                                         <span style={{ marginRight: '1.5rem', color: 'red' }}>Product name: {product.name}</span>
                                         <span style={{ marginLeft: '1.5rem', color: 'red' }}>Quantity: {product.quantity} Kuintel</span>
                                         <br />
-                                        <span style={{ marginRight: '0.5rem' }}>
-                                            {selectedImg && (
-                                                <img src={product.selectedImg}
-                                                    alt="Selected Image"
-                                                    style={{ width: '300px', height: 'auto' }} />
-                                            )}</span>
-                                        <span style={{ marginRight: '0.5rem' }}>{product.description}</span><br />
-                                        <span style={{ marginRight: '1.0rem', color: 'green' }}>Product Category: {product.category}</span>
-                                        <span style={{ backgroundColor: 'whitesmoke' }}> Price: ETB{product.price}</span><br />
+                                        <span style={{ display: 'inline-flex', marginLeft: '2rem' }}>
+                                            <img
+                                                src={product.selectedImg}
+                                                width='600rem'
+                                                height='120rem'
+                                                style={{ borderRadius: '2rem' }}
+
+                                            />
+                                            <div>
+                                                <span style={{ marginRight: '0.5rem' }}>{product.description}</span>
+                                                <br />
+                                                <span style={{ marginRight: '1.0rem', color: 'green' }}>Product Category: {product.category}</span>
+                                                <span style={{ backgroundColor: 'whitesmoke' }}> Price: ETB{product.price}</span>
+                                            </div>
+                                        </span>
+                                        <br />
                                         <button className='btn btn-warning' style={{ margin: '1rem' }} onClick={() => handleEditProduct(index)}>Edit</button>
                                         <button className='btn btn-danger' style={{ margin: '1rem' }} onClick={() => handleDeleteProduct(index)}>
                                             Delete

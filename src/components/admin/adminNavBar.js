@@ -1,5 +1,6 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
+import { NavDropdown } from 'react-bootstrap';
 
 const AdminNavBar = () =>
 {
@@ -23,7 +24,7 @@ const AdminNavBar = () =>
 
             <div style={{ display: 'flex' }}>
               <li className="nav-item">
-                <a className="nav-link" href="/">
+                <a className="nav-link" href="/admin">
                   Home
                 </a>
               </li>
@@ -32,26 +33,18 @@ const AdminNavBar = () =>
                   NewsFeed
                 </a>
               </li>
-              <li
-                className="nav-item dropdown mx-2 nav-link dropdown-toggle"
-                id="navbarDropdown"
-                role="button"
-                data-toggle="dropdown"
-                aria-haspopup="true"
-                aria-expanded="false"
-              >
-                Management Accounts
-                <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-                  <Link to="/admin/m-da" className="dropdown-item">
+              <li>
+                <NavDropdown title="Management Accounts" id="navbarDropdown">
+                  <NavDropdown.Item as={Link} to="/admin/m-da">
                     DA-WORKER
-                  </Link>
-                  <Link className="dropdown-item" to="/admin/m-fa">
+                  </NavDropdown.Item>
+                  <NavDropdown.Item as={Link} to="/admin/m-fa">
                     Farmer
-                  </Link>
-                  <Link className="dropdown-item" to="/admin/m-ic">
+                  </NavDropdown.Item>
+                  <NavDropdown.Item as={Link} to="/admin/m-ic">
                     IC
-                  </Link>
-                </div>
+                  </NavDropdown.Item>
+                </NavDropdown>
               </li>
 
 

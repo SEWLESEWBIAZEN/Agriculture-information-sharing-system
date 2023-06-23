@@ -1,0 +1,19 @@
+.wrapper{
+    min-height: 200px;
+    border: solid 1px #dddddd;
+    overflow-x: auto;
+    display: flex;
+    margin:'25% 10%'
+
+}
+.wrapper::-webkit-scrollbar{
+    width: 0;
+}
+.wrapper.item{
+   
+    line-height: 110px;
+    text-align: center;
+   
+   
+
+}

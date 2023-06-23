@@ -125,7 +125,8 @@ const JobManager = () =>
             try
             {
                 const response = await axios.post('/api/endpoint', job);
-                console.log(response.data); // Process response data here
+                console.log(response.data);
+                //Process response data here
             } catch (error)
             {
                 console.error(error);
@@ -157,8 +158,11 @@ const JobManager = () =>
     };
     const handleExpand = () =>
     {
-        setExpanded(!expanded)
-        setJobs(expanded ? jobsArray : jobsArray.slice(0, 3))
+
+        setExpanded((prevExpanded) => !prevExpanded);
+        setJobs((prevJobs) => (expanded ? jobsArray.slice(0, 3) : jobsArray));
+
+
 
 
     };
@@ -257,7 +261,7 @@ const JobManager = () =>
                                     ))}
                                 </ul>
                                 <button className='btn btn-primary mb-3' onClick={handleExpand}>
-                                    {expanded ? 'Show More...' : 'Show Less...'}
+                                    {expanded ? 'Show Less...' : 'Show More...'}
                                 </button>
                             </div>
                         )}
